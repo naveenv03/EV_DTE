@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="main">
+        <div class="navbar">
+            <div class="icon">
+                <h2 class="logo">ZAP-EV</h2>
+            </div>
+
+            <div class="menu">
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="#">PREDICT</a></li>
+                    <li><a href="#">NAVIGATE</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                </ul>
+            </div></div>
+            
+ 
+        {% if p %}
+        <div class="alert alert-success">{{p}}</div>
+        {% endif %}
+        
+        <form class="form-group" action="/" method="POST">
+            <label for="quantity">quantity : </label>
+            <input type="number" name="quantity" step="0.01"  class="form-control">
+            </br>
+            <label for="City_Roads">City Roads : </label>
+            <input type="number" name="City_Roads" step="0.01" class="form-control">
+            </br>
+            <label for="Motor_way">Motor way : </label>
+            <input type="number" name="Motor_way" step="0.01" class="form-control">
+            </br>
+            <label for="country_roads">Country roads : </label>
+            <input type="number" name="country_roads " step="0.01" class="form-control">
+            </br>
+            <label for="consumption">consumption : </label>
+            <input type="number" name="consumption" step="0.01" class="form-control">
+            </br>
+            <label for="A/C">A/C : </label>
+            <input type="number" name="A/C" step="0.01" class="form-control">
+            </br>
+            <label for="park_heating">park_heating: </label>
+            <input type="number" name="park_heating"  step="0.01" class="form-control">
+            </br>
+            <label for="avg_speed">avg_speed : </label>
+            <input type="number" name="avg_speed" step="0.01" class="form-control">
+            </br>
+            <label for="ecr_deviation">ecr_deviation : </label>
+            <input type="number" name="ecr_deviation" step="0.01" class="form-control">
+            </br>
+            <label for="encoded_driving_style">encoded_driving_style : </label>
+            <input type="number" name="encoded_driving_style" step="0.01" class="form-control">
+            </br>
+            <label for="encoded_tire_type">encoded_tire_type : </label>
+            <input type="number" name="encoded_tire_type" step="0.01" class="form-control">
+            </br>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </form>
+    </div>
+    
+</body>
+</html>

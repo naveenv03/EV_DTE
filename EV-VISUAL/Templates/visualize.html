@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Dashboard</title>
+  
+
+    <!-- Bootstrap CSS for layout and styling -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th {
+            background-color: #f4a261;
+            color: white;
+        }
+        .card {
+            margin: 10px 0;
+        }
+        canvas {
+            margin: 20px 0;
+        }
+        .menu {
+    width: 100%;
+    height: 60px;
+    background-color: #f4a261; /* Change color as per your design preference */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.leftmenu {
+    padding-left: 20px;
+}
+
+.leftmenu h4 {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.rightmenu {
+    padding-right: 20px;
+}
+
+.rightmenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.rightmenu ul li {
+    margin-left: 20px;
+}
+
+.rightmenu ul li a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 4px;
+}
+
+.rightmenu ul li a:hover {
+    background-color: white;
+    color: #f4a261;
+}
+
+#fisrtlist a {
+    background-color: white;
+    color: #f4a261;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+#fisrtlist a:hover {
+    background-color: #e76f51;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Data Visualization Dashboard</h1>
+    <div class="menu">
+			
+        <div class="leftmenu">
+            <h4> ZAP-EV </h4>
+        </div>
+
+        <div class="rightmenu">
+            <ul>
+                <li id="fisrtlist"><a href="/"> HOME </a></li>
+                <li><a href="/predict"> PREDICT </a></li>
+                <li> NAVIGATE</li>
+                <li> Aboust us</li>
+                <li>  Blogs </li>
+                <li>contact</li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="dashboard-stats-tab" data-toggle="tab" href="#dashboard-stats" role="tab" aria-controls="dashboard-stats" aria-selected="true">Dashboard Statistics</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="bar-charts-tab" data-toggle="tab" href="#bar-charts" role="tab" aria-controls="bar-charts" aria-selected="false">Bar Charts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pie-charts-tab" data-toggle="tab" href="#pie-charts" role="tab" aria-controls="pie-charts" aria-selected="false">Pie Charts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="data-table-tab" data-toggle="tab" href="#data-table" role="tab" aria-controls="data-table" aria-selected="false">Data Table</a>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="dashboardTabContent">
+        
+        <!-- Dashboard Statistics Tab -->
+        <div class="tab-pane fade show active" id="dashboard-stats" role="tabpanel" aria-labelledby="dashboard-stats-tab">
+            <div class="row text-center mt-3">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total Entries</h5>
+                            <h2 id="total-entries">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Average Prediction</h5>
+                            <h2 id="avg-prediction">0</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total Consumption</h5>
+                            <h2 id="total-consumption">0</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bar Charts Tab -->
+        <div class="tab-pane fade" id="bar-charts" role="tabpanel" aria-labelledby="bar-charts-tab">
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <canvas id="predictionChart" width="400" height="200"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="roadUsageBarChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Charts Tab -->
+        <div class="tab-pane fade" id="pie-charts" role="tabpanel" aria-labelledby="pie-charts-tab">
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <canvas id="roadUsagePieChart" width="400" height="200"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="consumptionPieChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table Tab -->
+        <div class="tab-pane fade" id="data-table" role="tabpanel" aria-labelledby="data-table-tab">
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>City Roads</th>
+                        <th>Motor Way</th>
+                        <th>Country Roads</th>
+                        <th>Consumption</th>
+                        <th>A/C</th>
+                        <th>Park Heating</th>
+                        <th>Avg Speed</th>
+                        <th>ECR Deviation</th>
+                        <th>Encoded Driving Style</th>
+                        <th>Encoded Tire Type</th>
+                        <th>Prediction</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table-body">
+                    <!-- Table rows will be added here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to initialize charts with empty/default data
+        function initializeCharts() {
+            const ctxPrediction = document.getElementById('predictionChart').getContext('2d');
+            window.predictionChart = new Chart(ctxPrediction, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Predicted Distance to Empty (km)',
+                        data: [],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+    
+            const ctxRoadUsageBar = document.getElementById('roadUsageBarChart').getContext('2d');
+            window.roadUsageBarChart = new Chart(ctxRoadUsageBar, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Total Road Usage (km)',
+                        data: [],
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+    
+            const ctxRoadUsagePie = document.getElementById('roadUsagePieChart').getContext('2d');
+            window.roadUsagePieChart = new Chart(ctxRoadUsagePie, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Road Usage Breakdown',
+                        data: [],
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                    }]
+                }
+            });
+    
+            const ctxConsumptionPie = document.getElementById('consumptionPieChart').getContext('2d');
+            window.consumptionPieChart = new Chart(ctxConsumptionPie, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Consumption Breakdown',
+                        data: [],
+                        backgroundColor: ['#4BC0C0', '#FF9F40'],
+                        hoverBackgroundColor: ['#4BC0C0', '#FF9F40']
+                    }]
+                }
+            });
+        }
+    
+        function fetchData() {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    const tableData = data.table_data || []; // Fallback to empty array if data is undefined
+                    const chartData = data.chart_data || {};
+    
+                    // Populate table
+                    const tableBody = document.getElementById('data-table-body');
+                    tableBody.innerHTML = ''; // Clear existing table rows
+                    tableData.forEach(row => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${row.quantity}</td>
+                            <td>${row.City_Roads}</td>
+                            <td>${row.Motor_way}</td>
+                            <td>${row.country_roads}</td>
+                            <td>${row.consumption}</td>
+                            <td>${row['A/C']}</td>
+                            <td>${row.park_heating}</td>
+                            <td>${row.avg_speed}</td>
+                            <td>${row.ecr_deviation}</td>
+                            <td>${row.encoded_driving_style}</td>
+                            <td>${row.encoded_tire_type}</td>
+                            <td>${row.prediction}</td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+    
+                    // Update dashboard stats
+                    const totalEntries = tableData.length;
+                    const totalPredictions = tableData.reduce((sum, row) => sum + row.prediction, 0);
+                    const avgPrediction = (totalPredictions / totalEntries).toFixed(2);
+                    const totalConsumption = tableData.reduce((sum, row) => sum + row.consumption, 0);
+    
+                    document.getElementById('total-entries').textContent = totalEntries;
+                    document.getElementById('avg-prediction').textContent = avgPrediction;
+                    document.getElementById('total-consumption').textContent = totalConsumption.toFixed(2);
+    
+                    // Prepare data for the charts
+                    const labels = tableData.map((_, index) => `Entry ${index + 1}`);
+                    const predictions = tableData.map(item => item.prediction);
+                    const roadTypes = ['City_Roads', 'Motor_way', 'country_roads'];
+                    const roadSums = roadTypes.map(type => tableData.reduce((sum, row) => sum + row[type], 0));
+    
+                    // Update prediction bar chart
+                    window.predictionChart.data.labels = labels;
+                    window.predictionChart.data.datasets[0].data = predictions;
+                    window.predictionChart.update();
+    
+                    // Update road usage bar chart
+                    window.roadUsageBarChart.data.labels = roadTypes;
+                    window.roadUsageBarChart.data.datasets[0].data = roadSums;
+                    window.roadUsageBarChart.update();
+    
+                    // Update road usage pie chart
+                    window.roadUsagePieChart.data.labels = roadTypes;
+                    window.roadUsagePieChart.data.datasets[0].data = roadSums;
+                    window.roadUsagePieChart.update();
+    
+                    // Update consumption pie chart
+                    const totalConsumptionSum = tableData.reduce((sum, row) => sum + row.consumption, 0);
+                    window.consumptionPieChart.data.datasets[0].data = [totalConsumptionSum, 100 - totalConsumptionSum];
+                    window.consumptionPieChart.update();
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+    
+        // Initialize charts with empty data
+        initializeCharts();
+    
+        // Fetch data initially
+        fetchData();
+    
+        // Optionally, set up a timer to fetch new data periodically
+        setInterval(fetchData, 60000); // Update every minute
+    });
+    </script>
+    
+</body>
+</html>

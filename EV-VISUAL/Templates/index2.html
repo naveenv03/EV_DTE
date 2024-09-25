@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet"  href="{{ url_for('static',filename='css/style.css') }}">
+		 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700%7CPT+Serif:400,700,400italic' rel='stylesheet'>
+		  <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
+		 
+          
+</head>
+<body>
+
+	<div class="bgimage">
+		<div class="menu">
+			
+			<div class="leftmenu">
+				<h4> ZAP-EV </h4>
+			</div>
+
+			<div class="rightmenu">
+				<ul>
+					<li id="fisrtlist"><a href="G:\EV-API\Templates\index.html"> HOME </a></li>
+					<li><a href="G:\EV-API\Templates\index2.html"> PREDICT </a></li>
+					<li> NAVIGATE</li>
+					<li> Aboust us</li>
+					<li>  Blogs </li>
+					<li>contact</li>
+				</ul>
+			</div>
+
+		</div>
+		
+
+		<div class="text">
+			<div class="jumbotron"> 
+				{% if p %}
+				<div class="alert alert-success"><h2>{{p}}</h2></div>
+				{% endif %}
+				<div class="form">
+				<form class="form-group" action="/predict" method="POST">
+					<label for="quantity">quantity : </label>
+					<input type="number" name="quantity" step="0.01"  class="form-control">
+					</br>
+					<label for="City_Roads">City Roads : </label>
+					<input type="number" name="City_Roads" step="0.01" class="form-control">
+					</br>
+					<label for="Motor_way">Motor way : </label>
+					<input type="number" name="Motor_way" step="0.01" class="form-control">
+					</br>
+					<label for="country_roads">Country roads : </label>
+					<input type="number" name="country_roads " step="0.01" class="form-control">
+					</br>
+					<label for="consumption">consumption : </label>
+					<input type="number" name="consumption" step="0.01" class="form-control">
+					</br>
+					<label for="A/C">A/C : </label>
+					<input type="number" name="A/C" step="0.01" class="form-control">
+					</br>
+					<label for="park_heating">park_heating: </label>
+					<input type="number" name="park_heating"  step="0.01" class="form-control">
+					</br>
+					<label for="avg_speed">avg_speed : </label>
+					<input type="number" name="avg_speed" step="0.01" class="form-control">
+					</br>
+					<label for="ecr_deviation">ecr_deviation : </label>
+					<input type="number" name="ecr_deviation" step="0.01" class="form-control">
+					</br>
+					<label for="encoded_driving_style">encoded_driving_style : </label>
+					<input type="number" name="encoded_driving_style" step="0.01" class="form-control">
+					</br>
+					<label for="encoded_tire_type">encoded_tire_type : </label>
+					<input type="number" name="encoded_tire_type" step="0.01" class="form-control">
+					</br>
+				</div>
+				<div class="break">
+					<button type="submit" name="submit" class="btn btn-primary">Submit</button>
+				</div>
+				</form>
+			</div>
+				
+			
+			
+		
+
+	</div>
+	
+	
+
+</body>
+</html>
